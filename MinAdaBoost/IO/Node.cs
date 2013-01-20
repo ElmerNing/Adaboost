@@ -1,0 +1,97 @@
+/*
+ * SVM.NET Library
+ * Copyright (C) 2008 Matthew Johnson
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+using System;
+
+namespace MinAdaBoost
+{
+    /// <summary>
+    /// Encapsulates a node in a Problem vector, with an index and a value (for more efficient representation
+    /// of sparse data.
+    /// </summary>
+	[Serializable]
+	public struct Node : IComparable<Node>
+	{
+        internal int _dim;
+        internal double _value;
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="dim">The dim of the value.</param>
+        /// <param name="value">The value to store.</param>
+        public Node(int dim, double value)
+        {
+            _dim = dim;
+            _value = value;
+        }
+
+        /// <summary>
+        /// Dim of this Node.
+        /// </summary>
+        public int Dim
+        {
+            get
+            {
+                return _dim;
+            }
+            set
+            {
+                _dim = value;
+            }
+        }
+        /// <summary>
+        /// Value at Index.
+        /// </summary>
+        public double Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+
+        /// <summary>
+        /// String representation of this Node as {index}:{value}.
+        /// </summary>
+        /// <returns>{index}:{value}</returns>
+        public override string ToString()
+        {
+            return string.Format("{0}:{1}", _dim, _value);
+        }
+
+        #region IComparable<Node> Members
+
+        /// <summary>
+        /// Compares this node with another.
+        /// </summary>
+        /// <param name="other">The node to compare to</param>
+        /// <returns>A positive number if this node is greater, a negative number if it is less than, or 0 if equal</returns>
+        public int CompareTo(Node other)
+        {
+            return _dim.CompareTo(other._dim);
+        }
+
+        #endregion
+    }
+}
